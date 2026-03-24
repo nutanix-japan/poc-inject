@@ -18,11 +18,12 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Variables are here
 
-# HPOC Demo
 
-- Cluster: ``{{cluster.HPOC_CLUSTER}}  ``
-- API URL: ``{{env.API_URL}}  ``
-- Grafana: ``{{services.GRAFANA_URL}}  ``
+# Claude suggestion
 
-- Username: ``{{credentials.USERNAME}}  ``
-- Password: ``{{credentials.PASSWORD}}``
+- Cluster: [[cluster.HPOC_CLUSTER]]
+- API URL: [[env.API_URL]]
+- Grafana: [[services.GRAFANA_URL]]
+- Username: [[credentials.USERNAME]]
+- Password: [[credentials.PASSWORD]]
+
