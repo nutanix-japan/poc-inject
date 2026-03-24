@@ -1,0 +1,20 @@
+{
+  "env": {
+    "PROJECT_NAME": "Nutanix HPOC Automation",
+    "API_URL": "https://dev.api.local",
+    "ENVIRONMENT": "dev"
+  },
+  "cluster": {
+    "HPOC_CLUSTER": "hpoc-cluster-01",
+    "K8S_VERSION": "1.29",
+    "INGRESS_DOMAIN": "apps.hpoc.local"
+  },
+  "credentials": {
+    "USERNAME": "admin",
+    "PASSWORD": "Nutanix/4u"
+  },
+  "services": {
+    "GRAFANA_URL": "https://grafana.hpoc.local",
+    "PROMETHEUS_URL": "https://prometheus.hpoc.local"
+  }
+}

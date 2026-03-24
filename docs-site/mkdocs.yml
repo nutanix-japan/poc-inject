@@ -1,0 +1,5 @@
+site_name: My Docs with Variables
+extra_javascript:
+  - js/variables.js
+theme:
+  name: material

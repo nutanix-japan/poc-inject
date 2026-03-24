@@ -1,0 +1,16 @@
+project-root/
+├── backend/
+│   ├── .venv/
+│   ├── main.py
+│   ├── variables.json
+│   └── requirements.txt
+│
+├── docs-site/
+│   ├── docs/
+│   │   ├── index.md
+│   │   └── js/
+│   │       └── variables.js
+│   │
+│   └── mkdocs.yml
+│
+└── README.md   (optional)
