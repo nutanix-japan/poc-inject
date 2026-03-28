@@ -98,6 +98,7 @@ def get_variables(email: str = None):
     
     # Return flat dict like the old system expected
     variables = {k: v for k, v in slot.items() if k != "email"}
+    variables["user_email"] = slot.get("email")
     return {"variables": variables}
 
 # ── Validate email exists in labs.json ──
