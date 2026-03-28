@@ -30,12 +30,12 @@ function injectStyles() {
             position: relative;
         }
 
-        .var-value:hover {
-            border-color: var(--md-primary-fg-color);
-        }
+        // .var-value:hover {
+        //     border-color: var(--md-primary-fg-color);
+        // }
 
         .var-value::after {
-            content: "Click to copy";
+            // content: "Click to copy";
             position: absolute;
             bottom: calc(100% + 6px);
             left: 50%;
@@ -63,7 +63,7 @@ function injectStyles() {
         }
 
         .var-value.copied::after {
-            content: "Copied!";
+            // content: "Copied!";
             opacity: 1;
             background: #4caf50;
             color: #fff;
@@ -83,18 +83,27 @@ function replaceVariables(vars) {
         false
     );
 
-    // Collect nodes first — modifying the DOM while walking breaks the walker
+    // ✅ Collect nodes first (prevents walker breaking)
     const nodesToProcess = [];
     let node;
+
     while (node = walker.nextNode()) {
-        if (node.nodeValue.includes("[[")) nodesToProcess.push(node);
+        if (node.nodeValue.includes("[[")) {
+            nodesToProcess.push(node);
+        }
     }
 
     nodesToProcess.forEach(node => {
         const parent = node.parentNode;
         if (!parent) return;
 
-        // Split on [[...]] boundaries, keeping the delimiters as separate parts
+        // 🚫 Skip if already processed
+        if (parent.closest && parent.closest(".var-value")) return;
+
+        // 🚫 Skip code/pre blocks
+        if (["CODE", "PRE"].includes(parent.tagName)) return;
+
+        // Split text into parts including [[...]]
         const parts = node.nodeValue.split(/(\[\[.*?\]\])/g);
 
         if (parts.length <= 1) return;
@@ -108,10 +117,12 @@ function replaceVariables(vars) {
                 const key = match[1].trim();
                 let value = resolvePath(vars, key);
 
-                // Fallback: search all sections for a flat key match
+                // 🔥 fallback: search all sections
                 if (value === undefined) {
                     Object.values(vars).forEach(section => {
-                        if (section && section[key] !== undefined) value = section[key];
+                        if (section && section[key] !== undefined) {
+                            value = section[key];
+                        }
                     });
                 }
 
@@ -120,11 +131,13 @@ function replaceVariables(vars) {
                     span.className = "var-value";
                     span.setAttribute("data-value", value);
                     span.textContent = value;
+
                     fragment.appendChild(span);
                 } else {
-                    // Unresolved placeholder — leave as-is
+                    // Leave unresolved as-is
                     fragment.appendChild(document.createTextNode(part));
                 }
+
             } else {
                 fragment.appendChild(document.createTextNode(part));
             }
@@ -134,15 +147,34 @@ function replaceVariables(vars) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
+async function initVariables() {
     const vars = await loadVariables();
-    console.log("Loaded variables:", vars);
 
-    injectStyles();
+    injectStyles(); // safe to call multiple times
     replaceVariables(vars);
 
-    createFloatingPanel(vars);
-    createToggleButton();
+    // Only create UI once
+    if (!document.getElementById("vars-panel")) {
+        createFloatingPanel(vars);
+        createToggleButton();
+    }
+}
+
+// Orig - DOMContentLoaded Section
+// document.addEventListener("DOMContentLoaded", async () => {
+//     const vars = await loadVariables();
+//     console.log("Loaded variables:", vars);
+
+//     injectStyles();
+//     replaceVariables(vars);
+
+//     createFloatingPanel(vars);
+//     createToggleButton();
+// });
+
+// Replaced to handle SPA  - DOMContentLoaded Section
+document.addEventListener("DOMContentLoaded", () => {
+    initVariables();
 });
 
 // Click-to-copy for inline .var-value spans in page body
@@ -319,4 +351,11 @@ function formatLabel(text) {
         .replace(/_/g, " ")
         .toLowerCase()
         .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+// MkDocs Material SPA navigation support
+if (typeof document$ !== "undefined") {
+    document$.subscribe(() => {
+        initVariables();
+    });
 }

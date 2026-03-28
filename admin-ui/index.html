@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lab Admin · Material</title>
+
+    <!-- AG Grid -->
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community@31.3.4/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community@31.3.4/styles/ag-theme-alpine.css">
+    <script src="https://unpkg.com/ag-grid-community@31.3.4/dist/ag-grid-community.min.js"></script>
+
+    <!-- Material Icons + Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <style>
+        /* ── MkDocs Material token surface ── */
+        :root {
+            --md-primary-fg-color:        #4051b5;
+            --md-primary-fg-color--light: #7c8dcb;
+            --md-primary-fg-color--dark:  #2c3a9e;
+            --md-primary-bg-color:        #fff;
+            --md-accent-fg-color:         #526cff;
+
+            --md-default-fg-color:              hsla(0,0%,0%,.87);
+            --md-default-fg-color--light:       hsla(0,0%,0%,.54);
+            --md-default-fg-color--lighter:     hsla(0,0%,0%,.32);
+            --md-default-fg-color--lightest:    hsla(0,0%,0%,.07);
+            --md-default-bg-color:              hsla(0,0%,100%,1);
+            --md-default-bg-color--light:       hsla(0,0%,100%,.7);
+
+            --md-code-bg-color:           hsla(0,0%,96%,1);
+            --md-code-fg-color:           hsla(200,18%,26%,1);
+
+            --md-shadow-z1: 0 0.2rem 0.5rem rgba(0,0,0,.05), 0 0 0.05rem rgba(0,0,0,.1);
+            --md-shadow-z2: 0 0.2rem 1rem rgba(0,0,0,.08), 0 0 0.1rem  rgba(0,0,0,.1);
+            --md-shadow-z3: 0 0.4rem 2rem rgba(0,0,0,.12), 0 0 0.1rem  rgba(0,0,0,.12);
+
+            --radius: 6px;
+            --header-h: 56px;
+        }
+
+        [data-theme="dark"] {
+            --md-primary-fg-color:              #7c8dcb;
+            --md-default-fg-color:              hsla(0,0%,100%,.87);
+            --md-default-fg-color--light:       hsla(0,0%,100%,.54);
+            --md-default-fg-color--lighter:     hsla(0,0%,100%,.32);
+            --md-default-fg-color--lightest:    hsla(0,0%,100%,.07);
+            --md-default-bg-color:              hsla(228,7%,14%,1);
+            --md-default-bg-color--light:       hsla(228,7%,14%,.7);
+            --md-code-bg-color:                 hsla(228,7%,18%,1);
+            --md-primary-bg-color:              hsla(0,0%,100%,.87);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Roboto, sans-serif;
+            font-size: 14px;
+            background: var(--md-code-bg-color);
+            color: var(--md-default-fg-color);
+            min-height: 100vh;
+        }
+
+        /* ── Top bar (mimics MkDocs header) ── */
+        .md-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: var(--header-h);
+            background: var(--md-primary-fg-color);
+            color: var(--md-primary-bg-color);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 12px;
+            box-shadow: 0 0 0.2rem rgba(0,0,0,.1), 0 0.2rem 0.4rem rgba(0,0,0,.2);
+        }
+
+        .md-header__icon {
+            display: flex;
+            align-items: center;
+            opacity: .9;
+        }
+
+        .md-header__title {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: .02em;
+            opacity: .95;
+        }
+
+        .md-header__subtitle {
+            font-size: 12px;
+            font-weight: 400;
+            opacity: .65;
+            margin-top: 1px;
+        }
+
+        /* theme toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--md-primary-bg-color);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            opacity: .8;
+            transition: opacity .2s, background .2s;
+        }
+        .theme-toggle:hover { opacity: 1; background: rgba(255,255,255,.1); }
+
+        /* ── Page shell ── */
+        .md-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 20px 48px;
+        }
+
+        /* ── Breadcrumb row ── */
+        .md-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--md-default-fg-color--light);
+            margin-bottom: 20px;
+        }
+        .md-breadcrumb span { display: flex; align-items: center; }
+        .md-breadcrumb .material-icons-round { font-size: 14px; }
+
+        /* ── Toolbar card ── */
+        .md-toolbar {
+            background: var(--md-default-bg-color);
+            border: 1px solid var(--md-default-fg-color--lightest);
+            border-radius: var(--radius);
+            box-shadow: var(--md-shadow-z1);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toolbar-right {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* lab selector — styled like MkDocs version selectors */
+        .lab-select-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .lab-select-wrap .material-icons-round {
+            position: absolute;
+            left: 10px;
+            font-size: 18px;
+            color: var(--md-primary-fg-color);
+            pointer-events: none;
+        }
+        select#labSelector {
+            appearance: none;
+            padding: 7px 32px 7px 34px;
+            border-radius: var(--radius);
+            border: 1px solid var(--md-default-fg-color--lightest);
+            background: var(--md-code-bg-color);
+            color: var(--md-default-fg-color);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+            transition: border-color .2s;
+        }
+        select#labSelector:focus { border-color: var(--md-primary-fg-color); }
+        .lab-select-wrap::after {
+            content: "expand_more";
+            font-family: "Material Icons Round";
+            position: absolute;
+            right: 8px;
+            font-size: 18px;
+            color: var(--md-default-fg-color--light);
+            pointer-events: none;
+        }
+
+        /* lab badge */
+        #lab-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(64, 81, 181, .1);
+            color: var(--md-primary-fg-color);
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        #lab-badge .material-icons-round { font-size: 14px; }
+
+        /* ── Buttons ── */
+        .md-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: var(--radius);
+            border: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .15s ease;
+            white-space: nowrap;
+        }
+        .md-btn .material-icons-round { font-size: 17px; }
+
+        .md-btn--filled {
+            background: var(--md-primary-fg-color);
+            color: #fff;
+        }
+        .md-btn--filled:hover {
+            background: var(--md-primary-fg-color--dark);
+            box-shadow: var(--md-shadow-z1);
+        }
+
+        .md-btn--outlined {
+            background: transparent;
+            color: var(--md-default-fg-color);
+            border: 1px solid var(--md-default-fg-color--lightest);
+        }
+        .md-btn--outlined:hover {
+            background: var(--md-code-bg-color);
+            border-color: var(--md-primary-fg-color--light);
+        }
+
+        /* ── Stats strip ── */
+        .md-stats {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .md-stat-chip {
+            background: var(--md-default-bg-color);
+            border: 1px solid var(--md-default-fg-color--lightest);
+            border-radius: var(--radius);
+            box-shadow: var(--md-shadow-z1);
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+        .md-stat-chip .material-icons-round {
+            font-size: 18px;
+            color: var(--md-primary-fg-color);
+        }
+        .md-stat-chip strong { font-weight: 600; }
+        .md-stat-chip span { color: var(--md-default-fg-color--light); }
+
+        /* ── Grid card ── */
+        .md-grid-card {
+            background: var(--md-default-bg-color);
+            border: 1px solid var(--md-default-fg-color--lightest);
+            border-radius: var(--radius);
+            box-shadow: var(--md-shadow-z1);
+            overflow: hidden;
+        }
+
+        #grid { height: 580px; width: 100%; }
+
+        /* AG Grid skin overrides */
+        .ag-theme-alpine {
+            --ag-background-color:          var(--md-default-bg-color);
+            --ag-foreground-color:          var(--md-default-fg-color);
+            --ag-border-color:              var(--md-default-fg-color--lightest);
+            --ag-header-background-color:   var(--md-code-bg-color);
+            --ag-header-foreground-color:   var(--md-default-fg-color--light);
+            --ag-odd-row-background-color:  var(--md-default-bg-color);
+            --ag-row-hover-color:           rgba(64,81,181,.04);
+            --ag-selected-row-background-color: rgba(64,81,181,.08);
+            --ag-font-family:               Roboto, sans-serif;
+            --ag-font-size:                 13px;
+            --ag-cell-horizontal-padding:   12px;
+            --ag-row-height:                40px;
+            --ag-header-height:             44px;
+            --ag-input-focus-border-color:  var(--md-primary-fg-color);
+        }
+
+        /* ── Delete row button ── */
+        .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            border-radius: 4px;
+            color: var(--md-default-fg-color--lighter);
+            transition: color .15s, background .15s;
+        }
+        .delete-btn:hover {
+            color: #e53935;
+            background: rgba(229,57,53,.08);
+        }
+        .delete-btn .material-icons-round { font-size: 17px; }
+
+        /* ── Column header with delete icon ── */
+        .col-header-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 4px;
+        }
+        .col-header-label {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--md-default-fg-color--light);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+        .col-delete-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 4px;
+            color: transparent;
+            transition: color .15s, background .15s;
+            flex-shrink: 0;
+        }
+        .col-delete-btn .material-icons-round { font-size: 15px; }
+        .ag-header-cell:hover .col-delete-btn {
+            color: var(--md-default-fg-color--lighter);
+        }
+        .col-delete-btn:hover {
+            color: #e53935 !important;
+            background: rgba(229,57,53,.08);
+        }
+
+        /* ── Modal ── */
+        #modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.45);
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            backdrop-filter: blur(2px);
+        }
+        #modal-overlay.active { display: flex; }
+
+        #modal {
+            background: var(--md-default-bg-color);
+            color: var(--md-default-fg-color);
+            border-radius: 10px;
+            box-shadow: var(--md-shadow-z3);
+            border: 1px solid var(--md-default-fg-color--lightest);
+            width: 360px;
+            overflow: hidden;
+            animation: modalIn .18s ease;
+        }
+        @keyframes modalIn { from { opacity:0; transform:scale(.96); } to { opacity:1; transform:none; } }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 20px 12px;
+            border-bottom: 1px solid var(--md-default-fg-color--lightest);
+        }
+        .modal-header .material-icons-round {
+            color: var(--md-primary-fg-color);
+            font-size: 22px;
+        }
+        .modal-header h3 { font-size: 15px; font-weight: 600; }
+
+        .modal-body { padding: 16px 20px; }
+
+        .md-input-wrap { position: relative; }
+        .md-input-wrap label {
+            display: block;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--md-default-fg-color--light);
+            margin-bottom: 6px;
+        }
+        .md-input-wrap input {
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: var(--radius);
+            border: 1px solid var(--md-default-fg-color--lightest);
+            background: var(--md-code-bg-color);
+            color: var(--md-default-fg-color);
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .md-input-wrap input:focus {
+            border-color: var(--md-primary-fg-color);
+            box-shadow: 0 0 0 3px rgba(64,81,181,.12);
+        }
+        .md-input-hint {
+            font-size: 11px;
+            color: var(--md-default-fg-color--lighter);
+            margin-top: 5px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 12px 20px 16px;
+            border-top: 1px solid var(--md-default-fg-color--lightest);
+        }
+
+        /* ── Toast ── */
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #323232;
+            color: #fff;
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--md-shadow-z3);
+            z-index: 5000;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity .2s, transform .2s;
+            pointer-events: none;
+        }
+        #toast.show { opacity: 1; transform: none; }
+        #toast .material-icons-round { font-size: 17px; color: #81c784; }
+        #toast.error .material-icons-round { color: #ef9a9a; }
+    </style>
+</head>
+
+<body>
+
+    <!-- MkDocs-style header -->
+    <header class="md-header">
+        <div class="md-header__icon">
+            <span class="material-icons-round" style="font-size:26px;">science</span>
+        </div>
+        <div class="md-header__title">
+            Lab Allocation Admin
+            <div class="md-header__subtitle">Manage lab users, credentials, and allocations</div>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+            <span class="material-icons-round" id="theme-icon">dark_mode</span>
+        </button>
+    </header>
+
+    <main class="md-main">
+
+        <!-- Breadcrumb -->
+        <div class="md-breadcrumb">
+            <span><span class="material-icons-round">home</span></span>
+            <span class="material-icons-round">chevron_right</span>
+            <span>Admin</span>
+            <span class="material-icons-round">chevron_right</span>
+            <span id="breadcrumb-lab">—</span>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="md-toolbar">
+            <div class="toolbar-left">
+                <div class="lab-select-wrap">
+                    <span class="material-icons-round">biotech</span>
+                    <select id="labSelector"></select>
+                </div>
+                <div id="lab-badge">
+                    <span class="material-icons-round">fiber_manual_record</span>
+                    <span id="badge-label">—</span>
+                </div>
+            </div>
+            <div class="toolbar-right">
+                <button class="md-btn md-btn--outlined" onclick="openAddColumnModal()">
+                    <span class="material-icons-round">view_column</span> Add Column
+                </button>
+                <button class="md-btn md-btn--filled" onclick="addRow()">
+                    <span class="material-icons-round">add</span> Add Row
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats strip -->
+        <div class="md-stats">
+            <div class="md-stat-chip">
+                <span class="material-icons-round">table_rows</span>
+                <strong id="stat-rows">0</strong>
+                <span>rows</span>
+            </div>
+            <div class="md-stat-chip">
+                <span class="material-icons-round">view_week</span>
+                <strong id="stat-cols">0</strong>
+                <span>columns</span>
+            </div>
+            <div class="md-stat-chip">
+                <span class="material-icons-round">person</span>
+                <strong id="stat-assigned">0</strong>
+                <span>assigned</span>
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div class="md-grid-card">
+            <div id="grid" class="ag-theme-alpine"></div>
+        </div>
+
+    </main>
+
+    <!-- Add Column Modal -->
+    <div id="modal-overlay">
+        <div id="modal">
+            <div class="modal-header">
+                <span class="material-icons-round">view_column</span>
+                <h3>Add Column</h3>
+            </div>
+            <div class="modal-body">
+                <div class="md-input-wrap">
+                    <label>Column name</label>
+                    <input id="colNameInput" type="text" placeholder="e.g. ssh_key, vm_ip" autocomplete="off" />
+                    <div class="md-input-hint">Use lowercase with underscores. This key will be added to all rows.</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="md-btn md-btn--outlined" onclick="closeAddColumnModal()">Cancel</button>
+                <button class="md-btn md-btn--filled" onclick="confirmAddColumn()">
+                    <span class="material-icons-round">add</span> Add
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast">
+        <span class="material-icons-round">check_circle</span>
+        <span id="toast-msg">Saved</span>
+    </div>
+
+    <script src="app.js"></script>
+
+    <script>
+        // Dark mode toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.getAttribute("data-theme") === "dark";
+            html.setAttribute("data-theme", isDark ? "light" : "dark");
+            document.getElementById("theme-icon").textContent = isDark ? "dark_mode" : "light_mode";
+        }
+
+        // Toast helper (called from app.js)
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById("toast");
+            const icon = toast.querySelector(".material-icons-round");
+            document.getElementById("toast-msg").textContent = msg;
+            icon.textContent = isError ? "error_outline" : "check_circle";
+            toast.classList.toggle("error", isError);
+            toast.classList.add("show");
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.classList.remove("show"), 2500);
+        }
+    </script>
+</body>
+
+</html>

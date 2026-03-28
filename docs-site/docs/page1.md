@@ -26,10 +26,5 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 - Grafana: [[services.GRAFANA_URL]]
 - Username: [[credentials.USERNAME]]
 - Password: [[credentials.PASSWORD]]
-
-
-# New format
-
-- User Email: [[labs.nkp-lab.slots.0.email]]
-- Username: [[labs.nkp-lab.slots.0.username]]
+- K8S:[[cluster.K8S_VERSION]]
 

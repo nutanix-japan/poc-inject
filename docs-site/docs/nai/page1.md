@@ -27,9 +27,3 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 - Username: [[credentials.USERNAME]]
 - Password: [[credentials.PASSWORD]]
 
-
-# New format
-
-- User Email: [[labs.nkp-lab.slots.0.email]]
-- Username: [[labs.nkp-lab.slots.0.username]]
-
