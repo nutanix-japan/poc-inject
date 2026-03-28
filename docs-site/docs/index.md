@@ -18,18 +18,26 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Variables are here
 
-
-# Claude suggestion
-
-- Cluster: [[cluster.HPOC_CLUSTER]]
-- API URL: [[env.API_URL]]
-- Grafana: [[services.GRAFANA_URL]]
-- Username: [[credentials.USERNAME]]
-- Password: [[credentials.PASSWORD]]
-
-
 # New format
 
-- User Email: [[labs.nkp-lab.slots.0.email]]
-- Username: [[labs.nkp-lab.slots.0.username]]
+# Lab Environment Details
 
+This page shows live values from `labs.json`.
+
+### User 1 Details (First Slot)
+
+- **Email**: [[email]]
+- **HPOC Cluster**: [[hpoc_cluster]]
+- **Username**: [[username]]
+- **Password**: [[password]]
+- **Prism Central IP**: [[pc_ip]]
+- **Prism Element IP**: [[pe_ip]]
+
+### Connection Commands
+
+```bash
+# Example SSH command using variables
+ssh [[username]]@[[pe_ip]]
+
+# Or using cluster user
+ssh [[cluster_user]]@[[pe_ip]]

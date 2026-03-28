@@ -1,0 +1,25 @@
+"labs": {
+    "columns": [
+        "email",
+        "hpoc_cluster",
+        "username",
+        "password",
+        "pc_ip",
+        "pe_ip",
+        "NKP_url",
+        "cluster_user"
+    ],
+    "slots": [
+        {
+            "id": 1,
+            "email": "user1@mail.com",
+            "hpoc_cluster": "cluster-01",
+            "username": "user1",
+            "password": "password1",
+            "pc_ip": "",
+            "pe_ip": "",
+            "NKP_url": "",
+            "cluster_user": ""
+        }
+    ]
+},

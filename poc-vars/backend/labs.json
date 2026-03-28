@@ -1,65 +1,44 @@
 {
-  "labs": {
-    "nkp-lab": {
-      "columns": [
-        "email",
-        "hpoc_cluster",
-        "username",
-        "password",
-        "pc_ip",
-        "pe_ip",
-        "NKP_url",
-        "cluster_user"
-      ],
-      "slots": [
-        {
-          "id": 1,
-          "email": "user1@mail.com",
-          "hpoc_cluster": "cluster-01",
-          "username": "user1",
-          "password": "password1",
-          "pc_ip": "",
-          "pe_ip": "",
-          "NKP_url": "",
-          "cluster_user": ""
-        },
-        {
-          "id": 2,
-          "email": "user2@mail.com",
-          "pe_ip": "",
-          "NKP_url": "",
-          "cluster_user": ""
-        },
-        {
-          "id": 3,
-          "pc_ip": "",
-          "pe_ip": "",
-          "NKP_url": "",
-          "cluster_user": ""
-        },
-        {
-          "id": 4,
-          "pc_ip": "",
-          "pe_ip": "",
-          "NKP_url": "",
-          "cluster_user": ""
-        }
-      ]
+  "columns": [
+    "email",
+    "hpoc_cluster",
+    "username",
+    "password",
+    "pc_ip",
+    "pe_ip",
+    "cluster_user",
+    "nkp_url"
+  ],
+  "slots": [
+    {
+      "email": "user1@mail.com",
+      "hpoc_cluster": "cluster-01",
+      "username": "user1",
+      "password": "password1",
+      "pc_ip": "10.x.x.7",
+      "pe_ip": "10.x.x.37",
+      "cluster_user": "admin",
+      "nkp_url": ""
     },
-    "vm-lab": {
-      "columns": [
-        "email",
-        "vm_ip",
-        "ssh_key"
-      ],
-      "slots": [
-        {
-          "id": 1,
-          "email": "user1@email.com",
-          "vm_ip": "10.x.x.51",
-          "ssh_key": ""
-        }
-      ]
+    {
+      "email": "user2@mail.com",
+      "hpoc_cluster": "cluster-02",
+      "username": "user2",
+      "password": "password2",
+      "pc_ip": "10.x.x.7",
+      "pe_ip": "10.x.x.37",
+      "cluster_user": "admin",
+      "nkp_url": ""
+    },
+    {
+      "email": "user3@mail.com",
+      "hpoc_cluster": "cluster-03",
+      "username": "user3",
+      "password": "password3",
+      "pc_ip": "10.x.x.7",
+      "pe_ip": "10.x.x.37",
+      "cluster_user": "",
+      "nkp_url": ""
     }
-  }
+  ]
 }

@@ -17,43 +17,49 @@
     <style>
         /* ── MkDocs Material token surface ── */
         :root {
-            --md-primary-fg-color:        #4051b5;
+            --md-primary-fg-color: #4051b5;
             --md-primary-fg-color--light: #7c8dcb;
-            --md-primary-fg-color--dark:  #2c3a9e;
-            --md-primary-bg-color:        #fff;
-            --md-accent-fg-color:         #526cff;
+            --md-primary-fg-color--dark: #2c3a9e;
+            --md-primary-bg-color: #fff;
+            --md-accent-fg-color: #526cff;
 
-            --md-default-fg-color:              hsla(0,0%,0%,.87);
-            --md-default-fg-color--light:       hsla(0,0%,0%,.54);
-            --md-default-fg-color--lighter:     hsla(0,0%,0%,.32);
-            --md-default-fg-color--lightest:    hsla(0,0%,0%,.07);
-            --md-default-bg-color:              hsla(0,0%,100%,1);
-            --md-default-bg-color--light:       hsla(0,0%,100%,.7);
+            --md-default-fg-color: hsla(0, 0%, 0%, .87);
+            --md-default-fg-color--light: hsla(0, 0%, 0%, .54);
+            --md-default-fg-color--lighter: hsla(0, 0%, 0%, .32);
+            --md-default-fg-color--lightest: hsla(0, 0%, 0%, .07);
+            --md-default-bg-color: hsla(0, 0%, 100%, 1);
+            --md-default-bg-color--light: hsla(0, 0%, 100%, .7);
 
-            --md-code-bg-color:           hsla(0,0%,96%,1);
-            --md-code-fg-color:           hsla(200,18%,26%,1);
+            --md-code-bg-color: hsla(0, 0%, 96%, 1);
+            --md-code-fg-color: hsla(200, 18%, 26%, 1);
 
-            --md-shadow-z1: 0 0.2rem 0.5rem rgba(0,0,0,.05), 0 0 0.05rem rgba(0,0,0,.1);
-            --md-shadow-z2: 0 0.2rem 1rem rgba(0,0,0,.08), 0 0 0.1rem  rgba(0,0,0,.1);
-            --md-shadow-z3: 0 0.4rem 2rem rgba(0,0,0,.12), 0 0 0.1rem  rgba(0,0,0,.12);
+            --md-shadow-z1: 0 0.2rem 0.5rem rgba(0, 0, 0, .05), 0 0 0.05rem rgba(0, 0, 0, .1);
+            --md-shadow-z2: 0 0.2rem 1rem rgba(0, 0, 0, .08), 0 0 0.1rem rgba(0, 0, 0, .1);
+            --md-shadow-z3: 0 0.4rem 2rem rgba(0, 0, 0, .12), 0 0 0.1rem rgba(0, 0, 0, .12);
 
             --radius: 6px;
             --header-h: 56px;
         }
 
         [data-theme="dark"] {
-            --md-primary-fg-color:              #7c8dcb;
-            --md-default-fg-color:              hsla(0,0%,100%,.87);
-            --md-default-fg-color--light:       hsla(0,0%,100%,.54);
-            --md-default-fg-color--lighter:     hsla(0,0%,100%,.32);
-            --md-default-fg-color--lightest:    hsla(0,0%,100%,.07);
-            --md-default-bg-color:              hsla(228,7%,14%,1);
-            --md-default-bg-color--light:       hsla(228,7%,14%,.7);
-            --md-code-bg-color:                 hsla(228,7%,18%,1);
-            --md-primary-bg-color:              hsla(0,0%,100%,.87);
+            --md-primary-fg-color: #7c8dcb;
+            --md-default-fg-color: hsla(0, 0%, 100%, .87);
+            --md-default-fg-color--light: hsla(0, 0%, 100%, .54);
+            --md-default-fg-color--lighter: hsla(0, 0%, 100%, .32);
+            --md-default-fg-color--lightest: hsla(0, 0%, 100%, .07);
+            --md-default-bg-color: hsla(228, 7%, 14%, 1);
+            --md-default-bg-color--light: hsla(228, 7%, 14%, .7);
+            --md-code-bg-color: hsla(228, 7%, 18%, 1);
+            --md-primary-bg-color: hsla(0, 0%, 100%, .87);
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: Roboto, sans-serif;
@@ -75,7 +81,7 @@
             align-items: center;
             padding: 0 24px;
             gap: 12px;
-            box-shadow: 0 0 0.2rem rgba(0,0,0,.1), 0 0.2rem 0.4rem rgba(0,0,0,.2);
+            box-shadow: 0 0 0.2rem rgba(0, 0, 0, .1), 0 0.2rem 0.4rem rgba(0, 0, 0, .2);
         }
 
         .md-header__icon {
@@ -112,7 +118,11 @@
             opacity: .8;
             transition: opacity .2s, background .2s;
         }
-        .theme-toggle:hover { opacity: 1; background: rgba(255,255,255,.1); }
+
+        .theme-toggle:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, .1);
+        }
 
         /* ── Page shell ── */
         .md-main {
@@ -122,18 +132,9 @@
         }
 
         /* ── Breadcrumb row ── */
-        .md-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            color: var(--md-default-fg-color--light);
-            margin-bottom: 20px;
-        }
-        .md-breadcrumb span { display: flex; align-items: center; }
-        .md-breadcrumb .material-icons-round { font-size: 14px; }
 
         /* ── Toolbar card ── */
+        /* Combined toolbar improvements */
         .md-toolbar {
             background: var(--md-default-bg-color);
             border: 1px solid var(--md-default-fg-color--lightest);
@@ -143,73 +144,51 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 24px;
             margin-bottom: 16px;
             flex-wrap: wrap;
         }
 
-        .toolbar-left {
+        .md-toolbar .md-stats {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            gap: 12px;
+            margin: 0;
+            /* remove old margin */
+            flex-wrap: wrap;
         }
 
         .toolbar-right {
             display: flex;
             gap: 8px;
+            margin-left: auto;
+            /* push buttons to the far right */
+            flex-shrink: 0;
         }
 
-        /* lab selector — styled like MkDocs version selectors */
-        .lab-select-wrap {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        .lab-select-wrap .material-icons-round {
-            position: absolute;
-            left: 10px;
-            font-size: 18px;
-            color: var(--md-primary-fg-color);
-            pointer-events: none;
-        }
-        select#labSelector {
-            appearance: none;
-            padding: 7px 32px 7px 34px;
-            border-radius: var(--radius);
-            border: 1px solid var(--md-default-fg-color--lightest);
-            background: var(--md-code-bg-color);
-            color: var(--md-default-fg-color);
-            font-family: inherit;
+        /* Make stats chips smaller in toolbar */
+        .md-stat-chip {
+            padding: 6px 12px;
             font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            outline: none;
-            transition: border-color .2s;
         }
-        select#labSelector:focus { border-color: var(--md-primary-fg-color); }
-        .lab-select-wrap::after {
-            content: "expand_more";
-            font-family: "Material Icons Round";
-            position: absolute;
-            right: 8px;
-            font-size: 18px;
-            color: var(--md-default-fg-color--light);
-            pointer-events: none;
+
+        .md-stat-chip .material-icons-round {
+            font-size: 17px;
+        }
+
+        @media (max-width: 900px) {
+            .md-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+
+            .toolbar-right {
+                justify-content: center;
+                margin-left: 0;
+            }
         }
 
         /* lab badge */
-        #lab-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(64, 81, 181, .1);
-            color: var(--md-primary-fg-color);
-            border-radius: 20px;
-            padding: 3px 10px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        #lab-badge .material-icons-round { font-size: 14px; }
 
         /* ── Buttons ── */
         .md-btn {
@@ -226,12 +205,16 @@
             transition: all .15s ease;
             white-space: nowrap;
         }
-        .md-btn .material-icons-round { font-size: 17px; }
+
+        .md-btn .material-icons-round {
+            font-size: 17px;
+        }
 
         .md-btn--filled {
             background: var(--md-primary-fg-color);
             color: #fff;
         }
+
         .md-btn--filled:hover {
             background: var(--md-primary-fg-color--dark);
             box-shadow: var(--md-shadow-z1);
@@ -242,6 +225,7 @@
             color: var(--md-default-fg-color);
             border: 1px solid var(--md-default-fg-color--lightest);
         }
+
         .md-btn--outlined:hover {
             background: var(--md-code-bg-color);
             border-color: var(--md-primary-fg-color--light);
@@ -254,6 +238,7 @@
             margin-bottom: 16px;
             flex-wrap: wrap;
         }
+
         .md-stat-chip {
             background: var(--md-default-bg-color);
             border: 1px solid var(--md-default-fg-color--lightest);
@@ -265,12 +250,19 @@
             gap: 8px;
             font-size: 13px;
         }
+
         .md-stat-chip .material-icons-round {
             font-size: 18px;
             color: var(--md-primary-fg-color);
         }
-        .md-stat-chip strong { font-weight: 600; }
-        .md-stat-chip span { color: var(--md-default-fg-color--light); }
+
+        .md-stat-chip strong {
+            font-weight: 600;
+        }
+
+        .md-stat-chip span {
+            color: var(--md-default-fg-color--light);
+        }
 
         /* ── Grid card ── */
         .md-grid-card {
@@ -281,24 +273,27 @@
             overflow: hidden;
         }
 
-        #grid { height: 580px; width: 100%; }
+        #grid {
+            height: 580px;
+            width: 100%;
+        }
 
         /* AG Grid skin overrides */
         .ag-theme-alpine {
-            --ag-background-color:          var(--md-default-bg-color);
-            --ag-foreground-color:          var(--md-default-fg-color);
-            --ag-border-color:              var(--md-default-fg-color--lightest);
-            --ag-header-background-color:   var(--md-code-bg-color);
-            --ag-header-foreground-color:   var(--md-default-fg-color--light);
-            --ag-odd-row-background-color:  var(--md-default-bg-color);
-            --ag-row-hover-color:           rgba(64,81,181,.04);
-            --ag-selected-row-background-color: rgba(64,81,181,.08);
-            --ag-font-family:               Roboto, sans-serif;
-            --ag-font-size:                 13px;
-            --ag-cell-horizontal-padding:   12px;
-            --ag-row-height:                40px;
-            --ag-header-height:             44px;
-            --ag-input-focus-border-color:  var(--md-primary-fg-color);
+            --ag-background-color: var(--md-default-bg-color);
+            --ag-foreground-color: var(--md-default-fg-color);
+            --ag-border-color: var(--md-default-fg-color--lightest);
+            --ag-header-background-color: var(--md-code-bg-color);
+            --ag-header-foreground-color: var(--md-default-fg-color--light);
+            --ag-odd-row-background-color: var(--md-default-bg-color);
+            --ag-row-hover-color: rgba(64, 81, 181, .04);
+            --ag-selected-row-background-color: rgba(64, 81, 181, .08);
+            --ag-font-family: Roboto, sans-serif;
+            --ag-font-size: 13px;
+            --ag-cell-horizontal-padding: 12px;
+            --ag-row-height: 40px;
+            --ag-header-height: 44px;
+            --ag-input-focus-border-color: var(--md-primary-fg-color);
         }
 
         /* ── Delete row button ── */
@@ -314,11 +309,15 @@
             color: var(--md-default-fg-color--lighter);
             transition: color .15s, background .15s;
         }
+
         .delete-btn:hover {
             color: #e53935;
-            background: rgba(229,57,53,.08);
+            background: rgba(229, 57, 53, .08);
         }
-        .delete-btn .material-icons-round { font-size: 17px; }
+
+        .delete-btn .material-icons-round {
+            font-size: 17px;
+        }
 
         /* ── Column header with delete icon ── */
         .col-header-wrap {
@@ -328,6 +327,7 @@
             width: 100%;
             gap: 4px;
         }
+
         .col-header-label {
             flex: 1;
             overflow: hidden;
@@ -339,6 +339,7 @@
             text-transform: uppercase;
             letter-spacing: .04em;
         }
+
         .col-delete-btn {
             display: flex;
             align-items: center;
@@ -352,13 +353,18 @@
             transition: color .15s, background .15s;
             flex-shrink: 0;
         }
-        .col-delete-btn .material-icons-round { font-size: 15px; }
+
+        .col-delete-btn .material-icons-round {
+            font-size: 15px;
+        }
+
         .ag-header-cell:hover .col-delete-btn {
             color: var(--md-default-fg-color--lighter);
         }
+
         .col-delete-btn:hover {
             color: #e53935 !important;
-            background: rgba(229,57,53,.08);
+            background: rgba(229, 57, 53, .08);
         }
 
         /* ── Modal ── */
@@ -366,13 +372,16 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,.45);
+            background: rgba(0, 0, 0, .45);
             justify-content: center;
             align-items: center;
             z-index: 3000;
             backdrop-filter: blur(2px);
         }
-        #modal-overlay.active { display: flex; }
+
+        #modal-overlay.active {
+            display: flex;
+        }
 
         #modal {
             background: var(--md-default-bg-color);
@@ -384,7 +393,18 @@
             overflow: hidden;
             animation: modalIn .18s ease;
         }
-        @keyframes modalIn { from { opacity:0; transform:scale(.96); } to { opacity:1; transform:none; } }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
 
         .modal-header {
             display: flex;
@@ -393,15 +413,25 @@
             padding: 16px 20px 12px;
             border-bottom: 1px solid var(--md-default-fg-color--lightest);
         }
+
         .modal-header .material-icons-round {
             color: var(--md-primary-fg-color);
             font-size: 22px;
         }
-        .modal-header h3 { font-size: 15px; font-weight: 600; }
 
-        .modal-body { padding: 16px 20px; }
+        .modal-header h3 {
+            font-size: 15px;
+            font-weight: 600;
+        }
 
-        .md-input-wrap { position: relative; }
+        .modal-body {
+            padding: 16px 20px;
+        }
+
+        .md-input-wrap {
+            position: relative;
+        }
+
         .md-input-wrap label {
             display: block;
             font-size: 11px;
@@ -411,6 +441,7 @@
             color: var(--md-default-fg-color--light);
             margin-bottom: 6px;
         }
+
         .md-input-wrap input {
             width: 100%;
             padding: 9px 12px;
@@ -423,10 +454,12 @@
             outline: none;
             transition: border-color .2s, box-shadow .2s;
         }
+
         .md-input-wrap input:focus {
             border-color: var(--md-primary-fg-color);
-            box-shadow: 0 0 0 3px rgba(64,81,181,.12);
+            box-shadow: 0 0 0 3px rgba(64, 81, 181, .12);
         }
+
         .md-input-hint {
             font-size: 11px;
             color: var(--md-default-fg-color--lighter);
@@ -461,9 +494,20 @@
             transition: opacity .2s, transform .2s;
             pointer-events: none;
         }
-        #toast.show { opacity: 1; transform: none; }
-        #toast .material-icons-round { font-size: 17px; color: #81c784; }
-        #toast.error .material-icons-round { color: #ef9a9a; }
+
+        #toast.show {
+            opacity: 1;
+            transform: none;
+        }
+
+        #toast .material-icons-round {
+            font-size: 17px;
+            color: #81c784;
+        }
+
+        #toast.error .material-icons-round {
+            color: #ef9a9a;
+        }
     </style>
 </head>
 
@@ -485,28 +529,10 @@
 
     <main class="md-main">
 
-        <!-- Breadcrumb -->
-        <div class="md-breadcrumb">
-            <span><span class="material-icons-round">home</span></span>
-            <span class="material-icons-round">chevron_right</span>
-            <span>Admin</span>
-            <span class="material-icons-round">chevron_right</span>
-            <span id="breadcrumb-lab">—</span>
-        </div>
-
-        <!-- Toolbar -->
+        <!-- Combined Toolbar -->
         <div class="md-toolbar">
+            <!-- Stats on the right -->
             <div class="toolbar-left">
-                <div class="lab-select-wrap">
-                    <span class="material-icons-round">biotech</span>
-                    <select id="labSelector"></select>
-                </div>
-                <div id="lab-badge">
-                    <span class="material-icons-round">fiber_manual_record</span>
-                    <span id="badge-label">—</span>
-                </div>
-            </div>
-            <div class="toolbar-right">
                 <button class="md-btn md-btn--outlined" onclick="openAddColumnModal()">
                     <span class="material-icons-round">view_column</span> Add Column
                 </button>
@@ -514,25 +540,26 @@
                     <span class="material-icons-round">add</span> Add Row
                 </button>
             </div>
-        </div>
 
-        <!-- Stats strip -->
-        <div class="md-stats">
-            <div class="md-stat-chip">
-                <span class="material-icons-round">table_rows</span>
-                <strong id="stat-rows">0</strong>
-                <span>rows</span>
+            <!-- Buttons on the left -->
+            <div class="md-stats">
+                <div class="md-stat-chip">
+                    <span class="material-icons-round">table_rows</span>
+                    <strong id="stat-rows">0</strong>
+                    <span>rows</span>
+                </div>
+                <div class="md-stat-chip">
+                    <span class="material-icons-round">view_week</span>
+                    <strong id="stat-cols">0</strong>
+                    <span>columns</span>
+                </div>
+                <div class="md-stat-chip">
+                    <span class="material-icons-round">person</span>
+                    <strong id="stat-assigned">0</strong>
+                    <span>assigned</span>
+                </div>
             </div>
-            <div class="md-stat-chip">
-                <span class="material-icons-round">view_week</span>
-                <strong id="stat-cols">0</strong>
-                <span>columns</span>
-            </div>
-            <div class="md-stat-chip">
-                <span class="material-icons-round">person</span>
-                <strong id="stat-assigned">0</strong>
-                <span>assigned</span>
-            </div>
+
         </div>
 
         <!-- Grid -->

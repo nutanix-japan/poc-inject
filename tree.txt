@@ -1,16 +1,26 @@
-project-root/
-├── backend/
-│   ├── .venv/
-│   ├── main.py
-│   ├── variables.json
-│   └── requirements.txt
-│
-├── docs-site/
-│   ├── docs/
+.
+├── admin-ui
+│   ├── app.js
+│   └── index.html
+├── docs-site
+│   ├── docs
 │   │   ├── index.md
-│   │   └── js/
-│   │       └── variables.js
-│   │
+│   │   ├── js
+│   │   │   └── variables.js
+│   │   ├── nai
+│   │   │   └── page1.md
+│   │   ├── page1.md
+│   │   └── stylesheets
+│   │       └── extra.css
 │   └── mkdocs.yml
-│
-└── README.md   (optional)
+├── poc-vars
+│   └── backend
+│       ├── __pycache__
+│       │   ├── main.cpython-312.pyc
+│       │   └── main.cpython-313.pyc
+│       ├── labs.json
+│       ├── main.py
+│       ├── old_labs.json
+│       ├── reference_schema.json
+│       ├── requirements.txt
+│       └── variables.json

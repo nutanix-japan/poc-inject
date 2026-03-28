@@ -1,0 +1,65 @@
+{
+  "labs": {
+    "nkp-lab": {
+      "columns": [
+        "email",
+        "hpoc_cluster",
+        "username",
+        "password",
+        "pc_ip",
+        "pe_ip",
+        "NKP_url",
+        "cluster_user"
+      ],
+      "slots": [
+        {
+          "id": 1,
+          "email": "user1@mail.com",
+          "hpoc_cluster": "cluster-01",
+          "username": "user1",
+          "password": "password1",
+          "pc_ip": "",
+          "pe_ip": "",
+          "NKP_url": "",
+          "cluster_user": ""
+        },
+        {
+          "id": 2,
+          "email": "user2@mail.com",
+          "pe_ip": "",
+          "NKP_url": "",
+          "cluster_user": ""
+        },
+        {
+          "id": 3,
+          "pc_ip": "",
+          "pe_ip": "",
+          "NKP_url": "",
+          "cluster_user": ""
+        },
+        {
+          "id": 4,
+          "pc_ip": "",
+          "pe_ip": "",
+          "NKP_url": "",
+          "cluster_user": ""
+        }
+      ]
+    },
+    "vm-lab": {
+      "columns": [
+        "email",
+        "vm_ip",
+        "ssh_key"
+      ],
+      "slots": [
+        {
+          "id": 1,
+          "email": "user1@email.com",
+          "vm_ip": "10.x.x.51",
+          "ssh_key": ""
+        }
+      ]
+    }
+  }
+}
