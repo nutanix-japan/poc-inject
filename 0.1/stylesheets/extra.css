@@ -1,0 +1,13 @@
+.var-value {
+    background: var(--md-code-bg-color);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-family: monospace;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.var-value:hover {
+    background: #4caf50;
+    color: white;
+}
