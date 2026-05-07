@@ -1,8 +1,8 @@
-// variables.js - Working Version with proper timing
+// variables.js - Updated for current main.py API
 
 let currentUserData = null;
 
-console.log("%c[Vars] variables.js LOADED", "color:#4caf50; font-weight:bold");
+console.log("%c[Vars] variables.js loaded successfully", "color:#4caf50; font-weight:bold");
 
 // ==================== LOGIN MODAL ====================
 function showLoginModal() {
@@ -19,80 +19,98 @@ function showLoginModal() {
         <div style="background: var(--md-default-bg-color); color: var(--md-default-fg-color); 
                     padding: 32px; border-radius: 12px; width: 420px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
             <h2 style="margin:0 0 10px 0;">Lab Access</h2>
-            <p style="margin:0 0 20px 0;">Enter your email to load your lab data:</p>
+            <p style="margin:0 0 20px 0; opacity:0.9;">Enter your email to load your lab data:</p>
+            
             <input id="login-email" type="email" placeholder="user1@mail.com" 
-                   style="width:100%; padding:12px; margin-bottom:16px; border-radius:8px; font-size:15px;">
-            <button id="login-btn" style="width:100%; padding:14px; background:var(--md-primary-fg-color); 
-                    color:var(--md-primary-bg-color); border:none; border-radius:8px; cursor:pointer;">
+                   style="width:100%; padding:14px; margin-bottom:16px; border-radius:8px; font-size:15px;">
+            
+            <button id="login-btn" style="width:100%; padding:14px; background:var(--md-primary-fg-color);
+                    color:var(--md-primary-bg-color); border:none; border-radius:8px; cursor:pointer; font-size:16px;">
                 Load My Lab Data
             </button>
-            <p id="login-error" style="color:#ff6b6b; margin-top:12px; display:none;"></p>
+            
+            <p id="login-error" style="color:#ff6b6b; margin-top:12px; text-align:center; display:none;"></p>
         </div>
     `;
 
     document.body.appendChild(modal);
 
-    document.getElementById("login-btn").onclick = async () => {
+    const loginBtn = document.getElementById("login-btn");
+    const errorEl = document.getElementById("login-error");
+
+    loginBtn.onclick = async () => {
         const email = document.getElementById("login-email").value.trim();
         if (!email) return;
 
-        const btn = document.getElementById("login-btn");
-        const errorEl = document.getElementById("login-error");
-        btn.textContent = "Loading...";
-        btn.disabled = true;
+        loginBtn.textContent = "Loading...";
+        loginBtn.disabled = true;
+        errorEl.style.display = "none";
 
         try {
+            // First validate email (optional but good)
+            const validateRes = await fetch(`http://localhost:9000/api/validate-email?email=${encodeURIComponent(email)}`);
+            const validateData = await validateRes.json();
+
+            if (!validateData.valid) {
+                errorEl.textContent = validateData.message || "Email not found";
+                errorEl.style.display = "block";
+                return;
+            }
+
+            // Fetch user variables
             const res = await fetch(`http://localhost:9000/api/variables?email=${encodeURIComponent(email)}`);
             const data = await res.json();
 
             if (data.variables) {
                 currentUserData = data.variables;
+
                 localStorage.setItem("labUserEmail", email);
                 localStorage.setItem("labUserVariables", JSON.stringify(currentUserData));
 
-                console.log("%c[Vars] Login successful - Data loaded:", "color:#a6e3a1", currentUserData);
+                console.log("%c[Vars] Login successful for", "color:#a6e3a1", email);
 
                 document.getElementById("login-modal").remove();
-                setTimeout(replaceAndRender, 100);
-            } else {
-                errorEl.textContent = "No data found for this email.";
-                errorEl.style.display = "block";
+                setTimeout(initAfterLogin, 100);
             }
         } catch (err) {
             console.error(err);
-            errorEl.textContent = "Failed to connect to backend.";
+            errorEl.textContent = "Failed to connect to backend (port 9000)";
             errorEl.style.display = "block";
         } finally {
-            btn.textContent = "Load My Lab Data";
-            btn.disabled = false;
+            loginBtn.textContent = "Load My Lab Data";
+            loginBtn.disabled = false;
         }
     };
 };
 
 // ==================== INIT & RESTORE ====================
 async function initVariables() {
-    const saved = localStorage.getItem("labUserVariables");
-    if (saved) {
-        currentUserData = JSON.parse(saved);
-        console.log("%c[Vars] Restored user from storage", "color:#a6e3a1");
-        setTimeout(replaceAndRender, 150);
-    } else {
-        showLoginModal();
+    const savedVars = localStorage.getItem("labUserVariables");
+    if (savedVars) {
+        try {
+            currentUserData = JSON.parse(savedVars);
+            console.log("%c[Vars] Restored user from localStorage", "color:#a6e3a1");
+            initAfterLogin();
+            return;
+        } catch (e) {
+            console.warn("Corrupted saved data, clearing...");
+            localStorage.clear();
+        }
     }
+    showLoginModal();
 }
 
-function replaceAndRender() {
-    if (!currentUserData) return;
+function initAfterLogin() {
     injectStyles();
     replaceVariables(currentUserData);
     createFloatingPanel();
     createToggleButton();
 }
 
-// ==================== SAFE REPLACEMENT ====================
+// ==================== VARIABLE REPLACEMENT ====================
 function replaceVariables(vars) {
     if (!vars) return;
-    console.log("%c[Vars] Running replacement with keys:", "color:#89b4fa", Object.keys(vars));
+    console.log("%c[Vars] Replacing variables. Available keys:", "color:#89b4fa", Object.keys(vars));
 
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
     const nodesToProcess = [];
@@ -106,8 +124,7 @@ function replaceVariables(vars) {
 
     nodesToProcess.forEach(node => {
         const parent = node.parentNode;
-        if (!parent || parent.closest && parent.closest(".var-value")) return;
-        if (["CODE", "PRE"].includes(parent.tagName)) return;
+        if (!parent || parent.closest?.(".var-value") || ["CODE", "PRE"].includes(parent.tagName)) return;
 
         const parts = node.nodeValue.split(/(\[\[.*?\]\])/g);
         if (parts.length <= 1) return;
@@ -126,7 +143,7 @@ function replaceVariables(vars) {
                     span.setAttribute("data-value", value);
                     span.textContent = String(value);
                     fragment.appendChild(span);
-                    console.log(`[Vars] Replaced [[${key}]] → ${value}`);
+                    console.log(`%c[Vars] Replaced [[${key}]] → ${value}`, "color:#a6e3a1");
                 } else {
                     fragment.appendChild(document.createTextNode(part));
                 }
@@ -169,7 +186,7 @@ function createFloatingPanel() {
 
     document.getElementById("close-panel").onclick = () => panel.style.display = "none";
     document.getElementById("logout-btn").onclick = () => {
-        if (confirm("Logout?")) {
+        if (confirm("Logout and clear data?")) {
             localStorage.clear();
             location.reload();
         }
@@ -232,7 +249,7 @@ function createToggleButton() {
     btn.style = `
         position: fixed; bottom: 20px; right: 20px; padding: 10px 16px;
         border-radius: 20px; border: none; background: var(--md-primary-fg-color);
-        color: var(--md-primary-bg-color); cursor: pointer; z-index: 9999;
+        color: var(--md-primary-bg-color); cursor: pointer; z-index: 9999; font-weight: 500;
     `;
     btn.onclick = () => {
         const panel = document.getElementById("vars-panel");
@@ -249,7 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 if (typeof document$ !== "undefined") {
     document$.subscribe(() => {
-        console.log("%c[Vars] MkDocs navigation detected", "color:#4caf50");
         if (currentUserData) replaceVariables(currentUserData);
     });
 }

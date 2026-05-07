@@ -7,7 +7,8 @@
     "pc_ip",
     "pe_ip",
     "cluster_user",
-    "nkp_url"
+    "nkp_url",
+    "grafana_url"
   ],
   "slots": [
     {
@@ -18,7 +19,8 @@
       "pc_ip": "10.x.x.7",
       "pe_ip": "10.x.x.37",
       "cluster_user": "admin",
-      "nkp_url": ""
+      "nkp_url": "",
+      "grafana_url": ""
     },
     {
       "email": "user2@mail.com",
@@ -28,7 +30,8 @@
       "pc_ip": "10.x.x.7",
       "pe_ip": "10.x.x.37",
       "cluster_user": "admin",
-      "nkp_url": ""
+      "nkp_url": "",
+      "grafana_url": ""
     },
     {
       "email": "user3@mail.com",
@@ -37,8 +40,9 @@
       "password": "password3",
       "pc_ip": "10.x.x.7",
       "pe_ip": "10.x.x.37",
-      "cluster_user": "",
-      "nkp_url": ""
+      "cluster_user": "admin",
+      "nkp_url": "",
+      "grafana_url": ""
     }
   ]
 }

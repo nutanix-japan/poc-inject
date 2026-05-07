@@ -5,7 +5,9 @@ theme:
   name: material
   features:
     - navigation.footer
-
+# extra:
+#   version:
+#     provider: mike
   
 markdown_extensions:
   - pymdownx.superfences
@@ -16,3 +18,4 @@ nav:
 - Index: index.md
 - Page1: page1.md
 - PageInsideL: nai/page1.md
+
